@@ -33,3 +33,9 @@ func _physics_process(delta):
 		
 	move_and_slide()
 	
+
+func _on_izzyarea_body_entered(body: Node2D) -> void:
+	var damagenum=10
+	print("hit something")
+	if body.has_method("damage"):
+		body.damage(damagenum)
