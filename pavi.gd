@@ -7,7 +7,7 @@ var counter=0
 
 
 func _physics_process(delta):
-	var direction=Input.get_axis('move_left','move_right')
+	var direction=Input.get_axis('left','right')
 	if not is_on_floor():
 		velocity+=get_gravity() * delta
 		if Input.is_action_just_pressed('ui_accept') and jumpcount<2:
@@ -19,14 +19,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed('ui_accept') and is_on_floor():
 		velocity.y = jump_velocity
 		
-	if Input.is_action_pressed('move_left') or Input.is_action_pressed('move_right'):
+	if Input.is_action_pressed('left') or Input.is_action_pressed('right'):
 		velocity.x=speed*direction
 		
-	if Input.is_action_pressed('move_down'):
-		velocity.y+=100
-		velocity.x=0
-		
-	if Input.is_action_pressed('dash') and (Input.is_action_pressed('move_left') or Input.is_action_pressed('move_right')):
+	if Input.is_action_pressed('dash') and (Input.is_action_pressed('left') or Input.is_action_pressed('right')):
 		velocity.x=speed*direction*2
 		counter += 1 
 		if counter > 50:
@@ -37,14 +33,3 @@ func _physics_process(delta):
 		
 	move_and_slide()
 	
-	
-
-
-#izzy's death
-
-
-func _on_izzyarea_body_entered(body: Node2D) -> void:
-	var damagenum=10
-	print("hit something")
-	if body.has_method("damage"):
-		body.damage(damagenum)
